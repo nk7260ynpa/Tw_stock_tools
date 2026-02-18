@@ -1,10 +1,10 @@
 services:
-  tw-stock-tools:
+  tw_stock_tools:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: tw-stock-tools:latest
-    container_name: tw-stock-tools
+    image: nk7260ynpa/tw_stock_tools:latest
+    container_name: tw_stock_tools
     ports:
       - "8000:8000"
     volumes:

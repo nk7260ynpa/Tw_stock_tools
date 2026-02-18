@@ -6,9 +6,9 @@
 set -euo pipefail
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly IMAGE_NAME="tw-stock-tools"
+readonly IMAGE_NAME="nk7260ynpa/tw_stock_tools"
 readonly IMAGE_TAG="latest"
-readonly CONTAINER_NAME="tw-stock-tools"
+readonly CONTAINER_NAME="tw_stock_tools"
 
 # 確保 logs 目錄存在
 mkdir -p "${SCRIPT_DIR}/logs"
