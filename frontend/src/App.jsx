@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LaunchPad from "./components/LaunchPad";
+import StockProfitCalculator from "./pages/StockProfitCalculator";
 import "./App.css";
 
-function App() {
+function Home() {
   const [tools, setTools] = useState([]);
 
   useEffect(() => {
@@ -22,6 +24,17 @@ function App() {
         <LaunchPad tools={tools} />
       </main>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tools/stock-profit" element={<StockProfitCalculator />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
