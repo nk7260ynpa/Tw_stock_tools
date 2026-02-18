@@ -6,5 +6,13 @@
     "icon": "💰",
     "route": "/tools/stock-profit",
     "enabled": true
+  },
+  {
+    "id": "dividend",
+    "name": "股利計算器",
+    "description": "輸入持有股數與每股股利，計算股利總金額。",
+    "icon": "🎯",
+    "route": "/tools/dividend",
+    "enabled": true
   }
 ]

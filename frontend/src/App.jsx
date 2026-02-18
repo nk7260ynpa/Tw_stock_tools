@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LaunchPad from "./components/LaunchPad";
+import DividendCalculator from "./pages/DividendCalculator";
 import StockProfitCalculator from "./pages/StockProfitCalculator";
 import "./App.css";
 
@@ -33,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tools/stock-profit" element={<StockProfitCalculator />} />
+        <Route path="/tools/dividend" element={<DividendCalculator />} />
       </Routes>
     </BrowserRouter>
   );

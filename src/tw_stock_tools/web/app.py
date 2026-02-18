@@ -9,6 +9,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
+from tw_stock_tools.web.routers.dividend import router as dividend_router
 from tw_stock_tools.web.routers.stock_profit import router as stock_profit_router
 from tw_stock_tools.web.routers.tools import router as tools_router
 
@@ -17,6 +18,7 @@ app = FastAPI(title="台股工具集", version="0.1.0")
 # 註冊 API 路由
 app.include_router(tools_router)
 app.include_router(stock_profit_router)
+app.include_router(dividend_router)
 
 # 前端靜態檔案（React 建置產出）
 STATIC_DIR = Path(__file__).resolve().parent.parent.parent.parent / "frontend" / "dist"
