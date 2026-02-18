@@ -1,0 +1,11 @@
+services:
+  tw-stock-tools:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: tw-stock-tools:latest
+    container_name: tw-stock-tools
+    volumes:
+      - ../logs:/app/logs
+    environment:
+      - PYTHONPATH=/app/src
