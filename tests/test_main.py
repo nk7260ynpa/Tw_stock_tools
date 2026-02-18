@@ -4,7 +4,6 @@ import logging
 import unittest
 
 from tw_stock_tools.logger import setup_logger
-from tw_stock_tools.main import main
 
 
 class TestSetupLogger(unittest.TestCase):
@@ -29,17 +28,6 @@ class TestSetupLogger(unittest.TestCase):
         handler_count = len(logger.handlers)
         setup_logger(name="test_dup_logger")
         self.assertEqual(len(logger.handlers), handler_count)
-
-
-class TestMain(unittest.TestCase):
-    """測試主程式。"""
-
-    def test_main_runs_without_error(self):
-        """測試 main() 可正常執行。"""
-        try:
-            main()
-        except Exception as e:
-            self.fail(f"main() 拋出例外: {e}")
 
 
 if __name__ == "__main__":

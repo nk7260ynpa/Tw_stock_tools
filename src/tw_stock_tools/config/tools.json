@@ -1,0 +1,10 @@
+[
+  {
+    "id": "example-tool",
+    "name": "範例工具",
+    "description": "這是一個範例工具，展示如何新增工具卡片。",
+    "icon": "🔧",
+    "route": "/tools/example",
+    "enabled": true
+  }
+]

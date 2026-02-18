@@ -19,8 +19,10 @@ if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
 fi
 
 echo "啟動 ${CONTAINER_NAME} ..."
+echo "開啟瀏覽器前往 http://localhost:8000"
 
 docker run \
   --name "${CONTAINER_NAME}" \
+  -p 8000:8000 \
   -v "${SCRIPT_DIR}/logs:/app/logs" \
   "${IMAGE_NAME}:${IMAGE_TAG}"

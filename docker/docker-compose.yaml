@@ -5,6 +5,8 @@ services:
       dockerfile: docker/Dockerfile
     image: tw-stock-tools:latest
     container_name: tw-stock-tools
+    ports:
+      - "8000:8000"
     volumes:
       - ../logs:/app/logs
     environment:
