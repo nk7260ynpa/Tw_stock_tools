@@ -15,13 +15,15 @@ class TestStockProfitAPI(unittest.TestCase):
         self.client = TestClient(app)
 
     def test_calculate_profit_with_fees(self):
-        """測試獲利情境（含賣出手續費與證交稅）。"""
+        """測試一般股票獲利情境（含賣出手續費與證交稅 0.3%）。"""
         response = self.client.post(
             "/api/tools/stock-profit/calculate",
             json={"avg_price": 38.10, "shares": 21685, "current_price": 40.05},
         )
         self.assertEqual(response.status_code, 200)
         data = response.json()
+        self.assertEqual(data["stock_type"], "stock")
+        self.assertEqual(data["transaction_tax_rate"], 0.003)
         self.assertEqual(data["cost"], 826198.5)
         self.assertEqual(data["market_value"], 868484.25)
         # 賣出手續費: floor(868484.25 * 0.001425) = 1237
@@ -52,6 +54,40 @@ class TestStockProfitAPI(unittest.TestCase):
         )
         data = response.json()
         self.assertEqual(data["sell_commission"], 20)
+
+    def test_etf_tax_rate(self):
+        """測試 ETF 證交稅率 0.1%。"""
+        response = self.client.post(
+            "/api/tools/stock-profit/calculate",
+            json={
+                "avg_price": 100.0,
+                "shares": 1000,
+                "current_price": 110.0,
+                "stock_type": "etf",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["stock_type"], "etf")
+        self.assertEqual(data["transaction_tax_rate"], 0.001)
+        # 市值: 110000
+        # 賣出手續費: floor(110000 * 0.001425) = 156
+        self.assertEqual(data["sell_commission"], 156)
+        # 證交稅: floor(110000 * 0.001) = 110
+        self.assertEqual(data["transaction_tax"], 110)
+        self.assertEqual(data["total_fees"], 266)
+        # 淨損益: 110000 - 100000 - 266 = 9734
+        self.assertEqual(data["profit_loss"], 9734.0)
+
+    def test_default_stock_type_is_stock(self):
+        """測試預設商品類型為一般股票。"""
+        response = self.client.post(
+            "/api/tools/stock-profit/calculate",
+            json={"avg_price": 50.0, "shares": 100, "current_price": 50.0},
+        )
+        data = response.json()
+        self.assertEqual(data["stock_type"], "stock")
+        self.assertEqual(data["transaction_tax_rate"], 0.003)
 
     def test_invalid_input_returns_422(self):
         """測試無效輸入回傳 422。"""

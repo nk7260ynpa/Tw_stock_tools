@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./StockProfitCalculator.css";
 
 function StockProfitCalculator() {
+  const [stockType, setStockType] = useState("stock");
   const [avgPrice, setAvgPrice] = useState("");
   const [shares, setShares] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
@@ -22,6 +23,7 @@ function StockProfitCalculator() {
           avg_price: parseFloat(avgPrice),
           shares: parseInt(shares, 10),
           current_price: parseFloat(currentPrice),
+          stock_type: stockType,
         }),
       });
 
@@ -46,6 +48,23 @@ function StockProfitCalculator() {
       <h2 className="calculator-title">股票損益計算器</h2>
 
       <form className="calculator-form" onSubmit={handleCalculate}>
+        <div className="type-toggle">
+          <button
+            type="button"
+            className={`type-btn ${stockType === "stock" ? "active" : ""}`}
+            onClick={() => setStockType("stock")}
+          >
+            一般股票
+          </button>
+          <button
+            type="button"
+            className={`type-btn ${stockType === "etf" ? "active" : ""}`}
+            onClick={() => setStockType("etf")}
+          >
+            ETF
+          </button>
+        </div>
+
         <label className="form-label">
           購買均價（元）
           <input
@@ -111,7 +130,7 @@ function StockProfitCalculator() {
             <span className="result-value fee-value">-{formatMoney(result.sell_commission)} 元</span>
           </div>
           <div className="result-row fee-row">
-            <span className="result-label">證交稅</span>
+            <span className="result-label">證交稅（{result.transaction_tax_rate * 100}%）</span>
             <span className="result-value fee-value">-{formatMoney(result.transaction_tax)} 元</span>
           </div>
           <div className="result-row fee-row">
