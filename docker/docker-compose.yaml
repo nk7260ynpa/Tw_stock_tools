@@ -5,6 +5,7 @@ services:
       dockerfile: docker/Dockerfile
     image: nk7260ynpa/tw_stock_tools:latest
     container_name: tw_stock_tools
+    restart: always
     ports:
       - "8000:8000"
     volumes:
