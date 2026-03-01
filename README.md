@@ -51,7 +51,8 @@ Tw_stock_tools/
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-├── requirements.txt                # Python 依賴套件
+├── pyproject.toml                  # Python 套件設定（PEP 621）
+├── requirements.txt                # Docker 環境釘版依賴
 └── run.sh                          # 啟動主程式的執行腳本
 ```
 
