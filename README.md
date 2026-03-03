@@ -11,6 +11,9 @@
 
 ```text
 Tw_stock_tools/
+├── .github/
+│   └── workflows/
+│       └── docker-publish.yml      # GitHub Actions：自動建置並推送 Docker image
 ├── docker/
 │   ├── build.sh                    # 建立 Docker image 的執行腳本
 │   ├── Dockerfile                  # 多階段建置（Node + Python）
@@ -132,6 +135,33 @@ docker run --rm \
 ```
 
 重新建置 Docker image 後即可在 Launch Pad 看到新工具。
+
+## CI/CD
+
+本專案使用 GitHub Actions 自動建置並推送 Docker image 至 DockerHub。
+
+### 觸發條件
+
+推送符合 `v*.*.*` 格式的 tag 時自動觸發，例如：
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+### 自動執行流程
+
+1. Checkout 程式碼
+2. 設定 Docker Buildx
+3. 登入 DockerHub
+4. 建置 Docker image 並推送版本號 tag 與 `latest` tag
+
+### 必要的 GitHub Secrets
+
+| Secret 名稱 | 說明 |
+| --- | --- |
+| `DOCKER_USERNAME` | DockerHub 使用者名稱 |
+| `DOCKER_PASSWORD` | DockerHub 密碼或 Access Token |
 
 ## 授權
 
