@@ -24,6 +24,7 @@ echo "開啟瀏覽器前往 http://localhost:8000"
 docker run \
   --name "${CONTAINER_NAME}" \
   --restart always \
+  --network db_network \
   -p 8000:8000 \
   -v "${SCRIPT_DIR}/logs:/app/logs" \
   "${IMAGE_NAME}:${IMAGE_TAG}"

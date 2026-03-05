@@ -7,7 +7,7 @@
 - **股票損益計算器** — 輸入購買均價、持有股數與現價，計算損益金額與百分比（支援一般股票與 ETF 不同稅率）
 - **股利計算器** — 輸入持有股數與每股股利，計算股利總金額與扣除匯費後的實收金額
 - **台股特殊時刻表** — 一般交易、零股、盤後、期貨、選擇權等各市場交易時間總覽（純前端靜態頁面）
-- **台股知識庫** — 台股交易規則、費用稅務、技術指標與實用公式速查，支援關鍵字搜尋與分類篩選（純前端靜態頁面）
+- **台股知識庫** — 台股交易規則、費用稅務、技術指標與實用公式速查，支援關鍵字搜尋與分類篩選（資料來源：MySQL INFO.Knowledge 資料表）
 
 ## 專案架構
 
@@ -50,7 +50,8 @@ Tw_stock_tools/
 │           └── routers/
 │               ├── tools.py        # 工具列表 API 路由
 │               ├── stock_profit.py # 股票損益計算 API 路由
-│               └── dividend.py     # 股利計算 API 路由
+│               ├── dividend.py     # 股利計算 API 路由
+│               └── knowledge.py    # 台股知識庫 API 路由
 ├── tests/
 │   ├── __init__.py
 │   ├── test_main.py                # 日誌模組測試
@@ -68,6 +69,7 @@ Tw_stock_tools/
 ## 環境需求
 
 - Docker
+- MySQL 資料庫（台股知識庫功能需要 `INFO.Knowledge` 資料表，透過 `db_network` Docker 網路連線）
 
 ## 快速開始
 
@@ -124,6 +126,25 @@ docker run --rm \
 
 - 股利總金額 = 持有股數 × 每股股利
 - 實收金額 = 股利總金額 - 匯費
+
+### 台股知識庫
+
+資料來源為 MySQL `INFO.Knowledge` 資料表，透過 `db_network` Docker 網路連線。
+
+| API 端點 | 說明 |
+| --- | --- |
+| `GET /api/tools/knowledge` | 取得所有知識條目（可選 `category` query param 篩選） |
+| `GET /api/tools/knowledge/categories` | 取得所有分類名稱清單 |
+
+環境變數：
+
+| 變數名稱 | 說明 | 預設值 |
+| --- | --- | --- |
+| `DB_HOST` | MySQL 主機位址 | `tw_stock_database` |
+| `DB_USER` | MySQL 使用者名稱 | `root` |
+| `DB_PASSWORD` | MySQL 密碼 | `stock` |
+
+若資料庫未啟動或連線失敗，API 會回傳空陣列，前端顯示「目前無資料」。
 
 ## 新增工具
 

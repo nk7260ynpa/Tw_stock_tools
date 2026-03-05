@@ -16,6 +16,7 @@ COPY requirements.txt pyproject.toml ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ ./src/
+COPY tests/ ./tests/
 RUN pip install --no-cache-dir .
 
 COPY --from=frontend-builder /frontend/dist ./frontend/dist
