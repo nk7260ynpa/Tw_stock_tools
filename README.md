@@ -6,6 +6,8 @@
 
 - **股票損益計算器** — 輸入購買均價、持有股數與現價，計算損益金額與百分比（支援一般股票與 ETF 不同稅率）
 - **股利計算器** — 輸入持有股數與每股股利，計算股利總金額與扣除匯費後的實收金額
+- **台股特殊時刻表** — 一般交易、零股、盤後、期貨、選擇權等各市場交易時間總覽（純前端靜態頁面）
+- **台股知識庫** — 台股交易規則、費用稅務、技術指標與實用公式速查，支援關鍵字搜尋與分類篩選（純前端靜態頁面）
 
 ## 專案架構
 
@@ -27,7 +29,11 @@ Tw_stock_tools/
 │   │   │   └── ToolCard.jsx        # 工具卡片元件
 │   │   └── pages/
 │   │       ├── StockProfitCalculator.jsx  # 股票損益計算器頁面
-│   │       └── DividendCalculator.jsx     # 股利計算器頁面
+│   │       ├── DividendCalculator.jsx     # 股利計算器頁面
+│   │       ├── TradingSchedule.jsx        # 台股特殊時刻表頁面
+│   │       ├── TradingSchedule.css        # 台股特殊時刻表樣式
+│   │       ├── KnowledgeBase.jsx          # 台股知識庫頁面
+│   │       └── KnowledgeBase.css          # 台股知識庫樣式
 │   ├── index.html
 │   ├── package.json
 │   └── vite.config.js

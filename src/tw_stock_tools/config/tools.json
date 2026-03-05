@@ -14,5 +14,21 @@
     "icon": "🎯",
     "route": "/tools/dividend",
     "enabled": true
+  },
+  {
+    "id": "trading-schedule",
+    "name": "台股特殊時刻表",
+    "description": "一般交易、零股、盤後、期貨、選擇權等各市場交易時間總覽。",
+    "icon": "🕐",
+    "route": "/tools/trading-schedule",
+    "enabled": true
+  },
+  {
+    "id": "knowledge",
+    "name": "台股知識庫",
+    "description": "台股交易規則、費用稅務、技術指標與實用公式速查。",
+    "icon": "📚",
+    "route": "/tools/knowledge",
+    "enabled": true
   }
 ]

@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LaunchPad from "./components/LaunchPad";
 import DividendCalculator from "./pages/DividendCalculator";
 import StockProfitCalculator from "./pages/StockProfitCalculator";
+import TradingSchedule from "./pages/TradingSchedule";
+import KnowledgeBase from "./pages/KnowledgeBase";
 import "./App.css";
 
 function Home() {
@@ -35,6 +37,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/tools/stock-profit" element={<StockProfitCalculator />} />
         <Route path="/tools/dividend" element={<DividendCalculator />} />
+        <Route path="/tools/trading-schedule" element={<TradingSchedule />} />
+        <Route path="/tools/knowledge" element={<KnowledgeBase />} />
       </Routes>
     </BrowserRouter>
   );
