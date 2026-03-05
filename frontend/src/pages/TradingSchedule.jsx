@@ -75,9 +75,7 @@ const SCHEDULE_DATA = [
 ];
 
 function TradingSchedule() {
-  const [openSections, setOpenSections] = useState(
-    () => new Set(SCHEDULE_DATA.map((_, i) => i))
-  );
+  const [openSections, setOpenSections] = useState(() => new Set());
 
   const toggleSection = (index) => {
     setOpenSections((prev) => {
