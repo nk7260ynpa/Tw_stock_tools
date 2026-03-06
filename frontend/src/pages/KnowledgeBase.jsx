@@ -67,6 +67,24 @@ function KnowledgeBase() {
     setOpenItems(new Set());
   };
 
+  const renderDescription = (text) => {
+    const parts = text.split(/【([^】]+)】/);
+    if (parts.length <= 1) {
+      return <p className="knowledge-item-desc">{text}</p>;
+    }
+    return (
+      <div className="knowledge-item-desc">
+        {parts[0] && <p className="knowledge-desc-intro">{parts[0]}</p>}
+        {Array.from({ length: Math.floor((parts.length - 1) / 2) }, (_, i) => (
+          <div key={i} className="knowledge-desc-section">
+            <h4 className="knowledge-desc-section-title">{parts[i * 2 + 1]}</h4>
+            <p className="knowledge-desc-section-content">{parts[i * 2 + 2]}</p>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <div className="knowledge-page">
@@ -138,7 +156,7 @@ function KnowledgeBase() {
               </button>
               {isOpen && (
                 <div className="knowledge-item-body">
-                  <p className="knowledge-item-desc">{item.description}</p>
+                  {renderDescription(item.description)}
                 </div>
               )}
             </div>
