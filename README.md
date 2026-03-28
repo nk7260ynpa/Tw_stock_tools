@@ -8,6 +8,7 @@
 - **股利計算器** — 輸入持有股數與每股股利，計算股利總金額與扣除匯費後的實收金額
 - **台股特殊時刻表** — 一般交易、零股、盤後、期貨、選擇權等各市場交易時間總覽（純前端靜態頁面）
 - **台股知識庫** — 台股交易規則、費用稅務、技術指標與實用公式速查，支援關鍵字搜尋與分類篩選（資料來源：MySQL INFO.Knowledge 資料表）
+- **台股行事曆** — 以月曆視圖查詢台股開休市日期，顯示國定假日休市清單（資料來源：MySQL INFO.TradingCalendar 資料表）
 
 ## 專案架構
 
@@ -33,7 +34,9 @@ Tw_stock_tools/
 │   │       ├── TradingSchedule.jsx        # 台股特殊時刻表頁面
 │   │       ├── TradingSchedule.css        # 台股特殊時刻表樣式
 │   │       ├── KnowledgeBase.jsx          # 台股知識庫頁面
-│   │       └── KnowledgeBase.css          # 台股知識庫樣式
+│   │       ├── KnowledgeBase.css          # 台股知識庫樣式
+│   │       ├── TradingCalendar.jsx        # 台股行事曆頁面
+│   │       └── TradingCalendar.css        # 台股行事曆樣式
 │   ├── index.html
 │   ├── package.json
 │   └── vite.config.js
@@ -51,13 +54,15 @@ Tw_stock_tools/
 │               ├── tools.py        # 工具列表 API 路由
 │               ├── stock_profit.py # 股票損益計算 API 路由
 │               ├── dividend.py     # 股利計算 API 路由
-│               └── knowledge.py    # 台股知識庫 API 路由
+│               ├── knowledge.py    # 台股知識庫 API 路由
+│               └── calendar.py     # 台股行事曆 API 路由
 ├── tests/
 │   ├── __init__.py
 │   ├── test_main.py                # 日誌模組測試
 │   ├── test_api.py                 # 工具 API 測試
 │   ├── test_stock_profit.py        # 股票損益計算測試
-│   └── test_dividend.py            # 股利計算測試
+│   ├── test_dividend.py            # 股利計算測試
+│   └── test_calendar.py            # 台股行事曆 API 測試
 ├── .gitignore
 ├── LICENSE
 ├── README.md
@@ -145,6 +150,19 @@ docker run --rm \
 | `DB_PASSWORD` | MySQL 密碼 | `stock` |
 
 若資料庫未啟動或連線失敗，API 會回傳空陣列，前端顯示「目前無資料」。
+
+### 台股行事曆
+
+資料來源為 MySQL `INFO.TradingCalendar` 資料表，透過 `db_network` Docker 網路連線。
+
+| API 端點 | 說明 |
+| --- | --- |
+| `GET /api/tools/calendar?year=&month=` | 取得指定年月的開休市狀態 |
+| `GET /api/tools/calendar/holidays?year=` | 取得指定年份國定假日休市日（不含週末） |
+
+前端提供月曆視圖，開市日標示綠色、休市日標示紅色，hover 可顯示休市原因。頁面下方列出該年度所有國定假日休市日。
+
+環境變數同台股知識庫（`DB_HOST`、`DB_USER`、`DB_PASSWORD`）。
 
 ## 新增工具
 

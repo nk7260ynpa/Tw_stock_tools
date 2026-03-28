@@ -36,10 +36,10 @@ class TestToolsAPI(unittest.TestCase):
                 self.assertIn(field, tool)
 
     def test_tools_count(self):
-        """測試工具清單包含 4 個工具。"""
+        """測試工具清單包含 5 個工具。"""
         response = self.client.get("/api/tools")
         data = response.json()
-        self.assertEqual(len(data), 4)
+        self.assertEqual(len(data), 5)
 
     def test_trading_schedule_in_tools(self):
         """測試 trading-schedule 工具存在於清單中。"""
@@ -54,6 +54,13 @@ class TestToolsAPI(unittest.TestCase):
         data = response.json()
         tool_ids = [t["id"] for t in data]
         self.assertIn("knowledge", tool_ids)
+
+    def test_calendar_in_tools(self):
+        """測試 calendar 工具存在於清單中。"""
+        response = self.client.get("/api/tools")
+        data = response.json()
+        tool_ids = [t["id"] for t in data]
+        self.assertIn("calendar", tool_ids)
 
 
 class TestKnowledgeAPI(unittest.TestCase):

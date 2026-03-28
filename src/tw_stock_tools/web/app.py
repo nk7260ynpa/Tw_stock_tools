@@ -11,6 +11,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
+from tw_stock_tools.web.routers.calendar import router as calendar_router
 from tw_stock_tools.web.routers.dividend import router as dividend_router
 from tw_stock_tools.web.routers.knowledge import router as knowledge_router
 from tw_stock_tools.web.routers.stock_profit import router as stock_profit_router
@@ -25,6 +26,7 @@ app.include_router(tools_router)
 app.include_router(stock_profit_router)
 app.include_router(dividend_router)
 app.include_router(knowledge_router)
+app.include_router(calendar_router)
 
 
 def _resolve_static_dir() -> Path | None:

@@ -30,5 +30,13 @@
     "icon": "📚",
     "route": "/tools/knowledge",
     "enabled": true
+  },
+  {
+    "id": "calendar",
+    "name": "台股行事曆",
+    "description": "查詢台股開休市日期，以月曆視圖顯示開市與休市狀態。",
+    "icon": "📅",
+    "route": "/tools/calendar",
+    "enabled": true
   }
 ]

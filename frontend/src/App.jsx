@@ -5,6 +5,7 @@ import DividendCalculator from "./pages/DividendCalculator";
 import StockProfitCalculator from "./pages/StockProfitCalculator";
 import TradingSchedule from "./pages/TradingSchedule";
 import KnowledgeBase from "./pages/KnowledgeBase";
+import TradingCalendar from "./pages/TradingCalendar";
 import "./App.css";
 
 function Home() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/tools/dividend" element={<DividendCalculator />} />
         <Route path="/tools/trading-schedule" element={<TradingSchedule />} />
         <Route path="/tools/knowledge" element={<KnowledgeBase />} />
+        <Route path="/tools/calendar" element={<TradingCalendar />} />
       </Routes>
     </BrowserRouter>
   );

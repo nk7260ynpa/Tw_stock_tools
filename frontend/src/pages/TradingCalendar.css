@@ -1,0 +1,318 @@
+.calendar-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.calendar-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.calendar-subtitle {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+}
+
+.calendar-error {
+  text-align: center;
+  padding: 1rem 0;
+  color: #ef4444;
+  font-size: 0.95rem;
+}
+
+.calendar-loading {
+  text-align: center;
+  padding: 3rem 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* -- 月份導覽 -- */
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #3b82f6;
+  background: #ffffff;
+  border: 1px solid #3b82f6;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  line-height: 1;
+}
+
+.calendar-nav-btn:hover {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.calendar-nav-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  min-width: 8rem;
+  text-align: center;
+}
+
+.calendar-today-btn {
+  margin-left: auto;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #3b82f6;
+  background: #ffffff;
+  border: 1px solid #3b82f6;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.calendar-today-btn:hover {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+/* -- 統計 -- */
+
+.calendar-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.calendar-stat-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+}
+
+.calendar-stat-dot.open {
+  background: #22c55e;
+}
+
+.calendar-stat-dot.closed {
+  background: #ef4444;
+}
+
+/* -- 月曆格子 -- */
+
+.calendar-grid-wrapper {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-weekday {
+  padding: 0.6rem 0;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.calendar-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.25rem;
+  min-height: 3.2rem;
+  border-bottom: 1px solid #f1f5f9;
+  border-right: 1px solid #f1f5f9;
+  cursor: default;
+  transition: background 0.15s;
+}
+
+.calendar-cell:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-cell.empty {
+  background: #fafafa;
+}
+
+.calendar-cell.open:hover {
+  background: #f0fdf4;
+}
+
+.calendar-cell.closed:hover {
+  background: #fef2f2;
+}
+
+.calendar-cell.today {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+  border-radius: 0.25rem;
+}
+
+.calendar-day-num {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.calendar-cell.closed .calendar-day-num {
+  color: #ef4444;
+}
+
+.calendar-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  margin-top: 0.2rem;
+}
+
+.calendar-dot.open {
+  background: #22c55e;
+}
+
+.calendar-dot.closed {
+  background: #ef4444;
+}
+
+/* -- 圖例 -- */
+
+.calendar-legend {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+.calendar-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.calendar-legend-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.calendar-legend-dot.open {
+  background: #22c55e;
+}
+
+.calendar-legend-dot.closed {
+  background: #ef4444;
+}
+
+.calendar-legend-today {
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 2px solid #3b82f6;
+  border-radius: 0.15rem;
+}
+
+/* -- 國定假日清單 -- */
+
+.calendar-holidays {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.calendar-holidays-title {
+  padding: 0.75rem 1rem;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.calendar-holidays-list {
+  padding: 0;
+}
+
+.calendar-holiday-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.calendar-holiday-item:last-child {
+  border-bottom: none;
+}
+
+.calendar-holiday-date {
+  font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+  font-size: 0.85rem;
+  color: #ef4444;
+  white-space: nowrap;
+  min-width: 6.5rem;
+}
+
+.calendar-holiday-desc {
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+/* -- Tooltip -- */
+
+.calendar-tooltip {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  margin-top: -0.5rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  color: #ffffff;
+  background: #1e293b;
+  border-radius: 0.375rem;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
