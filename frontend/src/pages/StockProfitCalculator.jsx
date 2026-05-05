@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { apiUrl } from "../utils/api";
 import "./StockProfitCalculator.css";
 
 function StockProfitCalculator() {
@@ -16,7 +17,7 @@ function StockProfitCalculator() {
     setResult(null);
 
     try {
-      const res = await fetch("/api/tools/stock-profit/calculate", {
+      const res = await fetch(apiUrl("/api/tools/stock-profit/calculate"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

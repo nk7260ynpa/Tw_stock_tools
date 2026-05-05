@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { apiUrl } from "../utils/api";
 import "./DividendCalculator.css";
 
 function DividendCalculator() {
@@ -15,7 +16,7 @@ function DividendCalculator() {
     setResult(null);
 
     try {
-      const res = await fetch("/api/tools/dividend/calculate", {
+      const res = await fetch(apiUrl("/api/tools/dividend/calculate"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

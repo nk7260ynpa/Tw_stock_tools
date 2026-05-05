@@ -19,7 +19,12 @@ from tw_stock_tools.web.routers.tools import router as tools_router
 
 logger = logging.getLogger("tw_stock_tools")
 
-app = FastAPI(title="台股工具集", version="0.1.0")
+# 透過反向代理存取時（例如 Dashboard /app/tools/），Dashboard 會 strip 前綴後才
+# 轉發，因此後端實際收到的 request path 是根路徑（/assets/...）。預設不設 root_path
+# 以確保 StaticFiles mount 能正確處理。前端的 URL 前綴由 Vite base 設定處理。
+_ROOT_PATH = os.environ.get("ROOT_PATH", "")
+
+app = FastAPI(title="台股工具集", version="0.1.0", root_path=_ROOT_PATH)
 
 # 註冊 API 路由
 app.include_router(tools_router)

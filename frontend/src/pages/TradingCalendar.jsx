@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { apiUrl } from "../utils/api";
 import "./TradingCalendar.css";
 
 const WEEKDAY_LABELS = ["日", "一", "二", "三", "四", "五", "六"];
@@ -21,8 +22,8 @@ function TradingCalendar() {
       setError(null);
       try {
         const [calRes, holRes] = await Promise.all([
-          fetch(`/api/tools/calendar?year=${year}&month=${month}`),
-          fetch(`/api/tools/calendar/holidays?year=${year}`),
+          fetch(apiUrl(`/api/tools/calendar?year=${year}&month=${month}`)),
+          fetch(apiUrl(`/api/tools/calendar/holidays?year=${year}`)),
         ]);
         const calData = await calRes.json();
         const holData = await holRes.json();

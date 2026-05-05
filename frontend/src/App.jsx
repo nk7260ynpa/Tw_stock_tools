@@ -6,13 +6,14 @@ import StockProfitCalculator from "./pages/StockProfitCalculator";
 import TradingSchedule from "./pages/TradingSchedule";
 import KnowledgeBase from "./pages/KnowledgeBase";
 import TradingCalendar from "./pages/TradingCalendar";
+import { apiUrl } from "./utils/api";
 import "./App.css";
 
 function Home() {
   const [tools, setTools] = useState([]);
 
   useEffect(() => {
-    fetch("/api/tools")
+    fetch(apiUrl("/api/tools"))
       .then((res) => res.json())
       .then(setTools)
       .catch((err) => console.error("載入工具清單失敗:", err));
@@ -32,8 +33,9 @@ function Home() {
 }
 
 function App() {
+  const basename = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tools/stock-profit" element={<StockProfitCalculator />} />

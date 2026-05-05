@@ -19,12 +19,11 @@ if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
 fi
 
 echo "啟動 ${CONTAINER_NAME} ..."
-echo "開啟瀏覽器前往 http://localhost:8000"
+echo "容器僅透過 db_network 內部存取（不對外公開 8000 port）"
 
-docker run \
+docker run -d \
   --name "${CONTAINER_NAME}" \
   --restart always \
   --network db_network \
-  -p 8000:8000 \
   -v "${SCRIPT_DIR}/logs:/app/logs" \
   "${IMAGE_NAME}:${IMAGE_TAG}"

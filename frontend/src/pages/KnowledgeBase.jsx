@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { apiUrl } from "../utils/api";
 import "./KnowledgeBase.css";
 
 function KnowledgeBase() {
@@ -17,8 +18,8 @@ function KnowledgeBase() {
       setError(null);
       try {
         const [dataRes, catRes] = await Promise.all([
-          fetch("/api/tools/knowledge"),
-          fetch("/api/tools/knowledge/categories"),
+          fetch(apiUrl("/api/tools/knowledge")),
+          fetch(apiUrl("/api/tools/knowledge/categories")),
         ]);
         const data = await dataRes.json();
         const cats = await catRes.json();
