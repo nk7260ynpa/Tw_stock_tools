@@ -208,18 +208,34 @@ git push origin v0.1.0
 | `DOCKER_USERNAME` | DockerHub 使用者名稱 |
 | `DOCKER_PASSWORD` | DockerHub 密碼或 Access Token |
 
-### GitLab 鏡像至 GitHub
+### GitLab CI/CD（自架 GitLab，`.gitlab-ci.yml`）
 
 開發主線在自架 GitLab，GitHub 為對外鏡像：`origin` → GitLab（預設推送），`github` → GitHub。
+`.gitlab-ci.yml` 含兩個 stage，皆**僅在 `main` 打上 `vX.Y.Z` 版本 tag 並推送時觸發**
+（合併進 `main` 當下**不**觸發任何 job）：
 
-`.gitlab-ci.yml` 的 `mirror-to-github` job 觸發時機為：在 `main` 打上 `vX.Y.Z`
-版本 tag 並推送時（合併進 `main` 當下**不**觸發鏡像）。job 會以 GitLab Runner 注入的
-SSH 金鑰（`GITHUB_SSH_KEY`）把 `main` 與該版本 tag 一併鏡像推到 GitHub。
+| Stage | Job | 行為 |
+| --- | --- | --- |
+| `deploy` | `deploy` | GitLab Runner（docker executor + 掛 `/var/run/docker.sock`）於 host daemon 本地 `docker build`（`docker/Dockerfile`），先 build 新 image（`nk7260ynpa/tw_stock_tools:<版本>` 與 `:latest`）成功後才 `rm -f` 舊容器、`run` 新容器，將服務中斷壓到最小。 |
+| `mirror` | `mirror-to-github` | 以 GitLab Runner 注入的 SSH 金鑰（`GITHUB_SSH_KEY`）把 `main` 與該版本 tag 一併鏡像推到 GitHub。 |
+
+`deploy` 重啟的容器參數與 `run.sh` 對齊：`--network db_network`、`--restart=always`、
+**不** publish 8000 port、**不**帶 DB env（DB 連線靠程式碼預設值 `DB_HOST=tw_stock_database`
+/ `DB_USER=root` / `DB_PASSWORD=stock`，經 `db_network` 連線）。差別在 **log 落點**：
+`run.sh` 用 host bind mount（`logs/:/app/logs`），而 CI 部署因 Runner 內無 repo 的 host
+路徑，改用**具名 volume `tw_stock_tools_logs`** 掛到 `/app/logs`。CI 部署後查 log 改用：
 
 ```bash
-# feature 分支開 MR 合進 main 後，在 main 打 tag 才會鏡像
-git tag v0.1.1
-git push origin v0.1.1
+docker logs tw_stock_tools                                   # 容器 stdout/stderr
+docker run --rm -v tw_stock_tools_logs:/logs alpine ls /logs # 具名 volume 內的 log 檔
+```
+
+觸發方式：
+
+```bash
+# feature 分支開 MR 合進 main 後，在 main 打 tag 才會 deploy + 鏡像
+git tag v0.2.0
+git push origin v0.2.0
 ```
 
 ## 授權
