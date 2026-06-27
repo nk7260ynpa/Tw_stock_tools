@@ -208,6 +208,20 @@ git push origin v0.1.0
 | `DOCKER_USERNAME` | DockerHub 使用者名稱 |
 | `DOCKER_PASSWORD` | DockerHub 密碼或 Access Token |
 
+### GitLab 鏡像至 GitHub
+
+開發主線在自架 GitLab，GitHub 為對外鏡像：`origin` → GitLab（預設推送），`github` → GitHub。
+
+`.gitlab-ci.yml` 的 `mirror-to-github` job 觸發時機為：在 `main` 打上 `vX.Y.Z`
+版本 tag 並推送時（合併進 `main` 當下**不**觸發鏡像）。job 會以 GitLab Runner 注入的
+SSH 金鑰（`GITHUB_SSH_KEY`）把 `main` 與該版本 tag 一併鏡像推到 GitHub。
+
+```bash
+# feature 分支開 MR 合進 main 後，在 main 打 tag 才會鏡像
+git tag v0.1.1
+git push origin v0.1.1
+```
+
 ## 授權
 
 MIT License
